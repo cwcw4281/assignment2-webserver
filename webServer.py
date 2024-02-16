@@ -38,11 +38,13 @@ def webServer(port=13331):
 
 
       #Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n" Refer to https://w3.cs.jmu.edu/kirkpams/OpenCSF/Books/csf/html/TCPSockets.html
-      connectionSocket.sendall(outputdata)
+      
       #Fill in end
-               
+      
       for i in f: #for line in file
-        connectionSocket.sendall(i.encode())
+        outputdata+=i.encode()
+
+      connectionSocket.sendall(outputdata)
       #Fill in start - append your html file contents #Fill in end 
         
       #Send the content of the requested file to the client (don't forget the headers you created)!
@@ -59,7 +61,7 @@ def webServer(port=13331):
       #Fill in start
       outputdata = b"HTTP/1.1 404 Not Found\r\n Content-Type: text/html; charset=UTF-8\r\n"
       #Fill in end
-      connectionSocket.send(outputdata)
+      connectionSocket.sendall(outputdata)
 
       #Close client socket
       #Fill in start
